@@ -7,8 +7,22 @@ import (
 )
 
 func TestSub(t *testing.T) {
-	m := math.NewMath(10, 5, "sub")
-	if m.Calculate() != 5 {
-		t.Errorf("Expected 5, got %d", m.Calculate())
+	tests := []struct {
+		a, b     int
+		expected int
+	}{
+		{10, 5, 5},
+		{0, 0, 0},
+		{-1, 1, -2},
+		{100, 50, 50},
+		{5, 10, -5},
+		{-5, -3, -2},
+		{1000000, 1, 999999},
+	}
+
+	for _, tt := range tests {
+		if got := math.Sub(tt.a, tt.b); got != tt.expected {
+			t.Errorf("Sub(%d, %d) = %d; want %d", tt.a, tt.b, got, tt.expected)
+		}
 	}
 }
